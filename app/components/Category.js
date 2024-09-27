@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
-
-const CustomerFavorite = () => {
+const Category = () => {
   return (
     <View>
-      <Text>Customerfavorite</Text>
+      <Text>Category</Text>
     </View>
   );
 };
-export default CustomerFavorite;
+
+export default Category;
