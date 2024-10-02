@@ -1,17 +1,11 @@
-import React, { Children } from "react";
+import React from "react";
 
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
-const Card = ({ Children }) => {
-  return <View>{Children}</View>;
+const Card = ({ children, style }) => {
+  return <View style={[style]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
-  container: {
-    height: 50,
-    width: 50,
-    justifyContent: "center",
-    alignItems: "center",
-  },
 });
 export default Card;
