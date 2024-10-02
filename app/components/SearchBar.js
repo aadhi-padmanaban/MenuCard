@@ -1,15 +1,17 @@
 import React from "react";
-import { AppInputText } from "./AppInputText";
+import AppInputText from "./AppInputText";
 import { AntDesign } from "@expo/vector-icons";
-import { TouchableHighlight, StyleSheet } from "react-native";
+import { TouchableHighlight, StyleSheet, View } from "react-native";
 import Colors from "../config/Colors";
 
 const SearchBar = () => {
   return (
     <View style={styles.container}>
       <AppInputText
-        primaryIcon="book-search-outline"
+        primaryIcon="search1"
+        primaryIconColor={Colors.red}
         placeholder="Search Menu"
+        style={styles.inputtext}
       />
       <TouchableHighlight style={styles.submitbtn}>
         <AntDesign name="search1" size={20} />
@@ -19,12 +21,16 @@ const SearchBar = () => {
 };
 const styles = StyleSheet.create({
   container: {
+    flexDirection: "row",
+  },
+  inputtext: {
     flex: 1,
+    // marginRight: 50,
   },
   submitbtn: {
     width: 50,
     height: 50,
-    backgroundColor: Colors.pureWhite,
+    backgroundColor: Colors.red,
     alignItems: "center",
     justifyContent: "center",
   },

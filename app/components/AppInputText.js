@@ -40,11 +40,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "100%",
     flexDirection: "row",
-    marginVertical: 5,
-  },
-  primaryIcon: {
+    paddingVertical: "auto",
+    // flex:1,
     alignItems: "center",
     verticalAlign: "middle",
+    justifyContent: "center",
+  },
+  primaryIcon: {
+    
+    // width: 20,
     marginLeft: 10,
   },
   secondaryIcon: {
