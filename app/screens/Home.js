@@ -16,6 +16,7 @@ const Home = () => {
         <Category />
         <FeaturedItems />
         <SignatureItems />
+        
       </View>
     </Screen>
   );
