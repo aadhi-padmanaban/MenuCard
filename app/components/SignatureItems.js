@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Dimensions, Image, FlatList } from "react-native";
+import { View, Dimensions, Image, FlatList, StyleSheet } from "react-native";
 import Card from "./Card";
 import AppText from "./AppText";
 import AppHeader from "./AppHeader";
@@ -32,7 +32,7 @@ const SignatureItems = () => {
         renderItem={({ item, index }) => (
           <View style={styles.container}>
             <Card style={styles.cardcontainer}>
-              <Image source={{ uri: item.image }} />
+              <Image style={styles.image} source={{ uri: item.image }} />
             </Card>
             <AppText>{item.name}</AppText>
           </View>
@@ -56,6 +56,11 @@ const styles = StyleSheet.create({
   },
   cardcontainer: {
     height: 200,
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    objectFit: "cover",
   },
 });
 export default SignatureItems;
