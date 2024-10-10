@@ -3,21 +3,24 @@ import Screen from "../components/Screen";
 import Colors from "../config/Colors";
 import SearchBar from "../components/SearchBar";
 import Category from "../components/Category";
-import { StatusBar, StyleSheet, View } from "react-native";
+import { ScrollView, StatusBar, StyleSheet, View } from "react-native";
 import FeaturedItems from "../components/FeaturedItems";
 import SignatureItems from "../components/SignatureItems";
+import RecentPurchase from "../components/RecentPurchase";
 
 const Home = () => {
   return (
     <Screen>
-      <View style={styles.screenPadding}>
-        <StatusBar backgroundColor={Colors.red} />
-        <SearchBar />
-        <Category />
-        <FeaturedItems />
-        <SignatureItems />
-        
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.screenPadding}>
+          <StatusBar backgroundColor={Colors.red} />
+          <SearchBar />
+          <Category />
+          <FeaturedItems />
+          <SignatureItems />
+          <RecentPurchase />
+        </View>
+      </ScrollView>
     </Screen>
   );
 };
