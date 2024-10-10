@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import MenuList from "../screens/MenuList";
 import CustomerFavorite from "../screens/CustomerFavorite";
+import MenuFullView from "../screens/MenuFullView";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
@@ -49,6 +50,7 @@ const AppNavigator = () => {
         name="HomeNavigator"
         component={HomeNavigator}
       ></Stack.Screen>
+      <Stack.Screen name="MenuFullView" component={MenuFullView}></Stack.Screen>
     </Stack.Navigator>
   );
 };

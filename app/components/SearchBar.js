@@ -22,6 +22,7 @@ const SearchBar = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+    marginBottom:5
   },
   inputtext: {
     flex: 1,

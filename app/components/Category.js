@@ -9,14 +9,14 @@ import Colors from "../config/Colors";
 const categories = [
   {
     name: "Veg",
-    image: "https://picsum.photos/seed/696/3000/2000",
+    image: "https://picsum.photos/200/200",
     background: "#c5fcce",
     color: "#2eb774",
   },
   {
     name: "Non-Veg",
-    image: "https://picsum.photos/seed/696/3000/2000",
-    background: "#fac8c8",
+    image: "https://picsum.photos/200/200",
+    background: "#fcebec",
     color: "#f94449",
   },
 ];
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     height: 90,
     backgroundColor: Colors.white,
     borderRadius: 8,
-    marginRight:5
+    marginRight:6
   },
   catname: {
     paddingHorizontal: 3,
