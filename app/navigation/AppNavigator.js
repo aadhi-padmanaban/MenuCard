@@ -4,6 +4,7 @@ import Home from "../screens/Home";
 import MenuList from "../screens/MenuList";
 import CustomerFavorite from "../screens/CustomerFavorite";
 import MenuFullView from "../screens/MenuFullView";
+import FullScreenMediaView from "../screens/FullScreenMediaView";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
@@ -51,6 +52,10 @@ const AppNavigator = () => {
         component={HomeNavigator}
       ></Stack.Screen>
       <Stack.Screen name="MenuFullView" component={MenuFullView}></Stack.Screen>
+      <Stack.Screen
+        name="FullScreenMediaView"
+        component={FullScreenMediaView}
+      ></Stack.Screen>
     </Stack.Navigator>
   );
 };
