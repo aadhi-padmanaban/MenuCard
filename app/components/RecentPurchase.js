@@ -1,48 +1,52 @@
-import React from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableHighlight,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, FlatList, TouchableHighlight } from "react-native";
 import AppHeader from "./AppHeader";
 import AppText from "./AppText";
 import Colors from "../config/Colors";
 import Separator from "./Separator";
 import { useNavigation } from "@react-navigation/native";
 import FullWidthCard from "./FullWidthCard";
+import listingsApi from "../api/listings";
 
-
-const recentPurchase = [
-  {
-    title: "Recent one",
-    amount: "Rs.100",
-    image: "https://picsum.photos/seed/696/3000/2000",
-    monthPurchase: "100+ bought last month",
-    star: "4",
-  },
-  {
-    title: "Recent two",
-    amount: "Rs.200",
-    image: "https://picsum.photos/seed/696/3000/2000",
-  },
-  {
-    title: "Recent three",
-    amount: "Rs.300",
-    image: "https://picsum.photos/seed/696/3000/2000",
-    monthPurchase: "150+ bought last month",
-    star: "4",
-  },
-  {
-    title: "Recent four",
-    amount: "Rs.400",
-    image: "https://picsum.photos/seed/696/3000/2000",
-    star: "4",
-  },
-];
+// const recentPurchase = [
+//   {
+//     title: "Recent one",
+//     amount: "Rs.100",
+//     image: "https://picsum.photos/seed/696/3000/2000",
+//     monthPurchase: "100+ bought last month",
+//     star: "4",
+//   },
+//   {
+//     title: "Recent two",
+//     amount: "Rs.200",
+//     image: "https://picsum.photos/seed/696/3000/2000",
+//   },
+//   {
+//     title: "Recent three",
+//     amount: "Rs.300",
+//     image: "https://picsum.photos/seed/696/3000/2000",
+//     monthPurchase: "150+ bought last month",
+//     star: "4",
+//   },
+//   {
+//     title: "Recent four",
+//     amount: "Rs.400",
+//     image: "https://picsum.photos/seed/696/3000/2000",
+//     star: "4",
+//   },
+// ];
 
 const RecentPurchase = ({ onPress }) => {
   const navigation = useNavigation();
+  const [recentPurchase, setRecentPurchase] = useState([]);
+  useEffect(() => {
+    loadListings();
+  }, []);
+  const loadListings = async () => {
+    const response = await listingsApi.getRecentPurchase();
+    setRecentPurchase(response.recipes);
+  };
+
   return (
     <View style={styles.recentwrap}>
       <View style={styles.headertext}>
@@ -61,7 +65,7 @@ const RecentPurchase = ({ onPress }) => {
             underlayColor={Colors.white}
             onPress={() => navigation.navigate("MenuFullView")}
           >
-            <FullWidthCard item={item}/>
+            <FullWidthCard item={item} />
           </TouchableHighlight>
         )}
         keyExtractor={(item) => item.title}
@@ -90,6 +94,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 13,
   },
-  
 });
 export default RecentPurchase;

@@ -1,0 +1,10 @@
+import client from "./client";
+const endpoint = "/recipes";
+const featuredendpoint = endpoint + "?limit=10&select=name,image";
+const signatureitemendpoint = endpoint + "?limit=10&skip=10&select=name,image";
+const recentpurchaseendpoint = endpoint + "?limit=10&skip=20&select=name,image";
+const getReceipes = () => client.get(endpoint);
+const getFeatured = () => client.get(featuredendpoint);
+const getSignature = () => client.get(signatureitemendpoint);
+const getRecentPurchase = () => client.get(recentpurchaseendpoint);
+export default { getReceipes, getFeatured, getSignature, getRecentPurchase };

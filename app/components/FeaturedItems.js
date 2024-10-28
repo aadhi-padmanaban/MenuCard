@@ -1,46 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, View, StyleSheet, FlatList } from "react-native";
 import Card from "./Card";
 import AppText from "./AppText";
 import Colors from "../config/Colors";
 import AppHeader from "./AppHeader";
+import listingsApi from "../api/listings";
 
-const featuredItems = [
-  {
-    name: "Feat One",
-    image: "https://picsum.photos/seed/696/3000/2000",
-  },
-  {
-    name: "Feat Two",
-    image: "https://picsum.photos/seed/696/3000/2000",
-  },
-  {
-    name: "Feat Three",
-    image: "https://picsum.photos/seed/696/3000/2000",
-  },
-  {
-    name: "Feat Four",
-    image: "https://picsum.photos/seed/696/3000/2000",
-  },
-];
+// const featuredItems = [
+//   {
+//     name: "Feat One",
+//     image: "https://picsum.photos/seed/696/3000/2000",
+//   },
+//   {
+//     name: "Feat Two",
+//     image: "https://picsum.photos/seed/696/3000/2000",
+//   },
+//   {
+//     name: "Feat Three",
+//     image: "https://picsum.photos/seed/696/3000/2000",
+//   },
+//   {
+//     name: "Feat Four",
+//     image: "https://picsum.photos/seed/696/3000/2000",
+//   },
+// ];
+
 const FeaturedItems = () => {
+  const [featuredItems, setfeaturedItems] = useState([]);
+  useEffect(() => {
+    loadListings();
+  }, []);
+  const loadListings = async () => {
+    const response = await listingsApi.getFeatured();
+    setfeaturedItems(response.recipes);
+  };
   return (
     <View style={styles.featwrap}>
       <AppHeader style={styles.headername}>Featured Items</AppHeader>
       <FlatList
         data={featuredItems}
-        renderItem={({item,index}) => (
+        renderItem={({ item, index }) => (
           <Card style={styles.container}>
-            <Image
-              style={styles.image}
-              source={{ uri: item.image }}
-            />
+            <Image style={styles.image} source={{ uri: item.image }} />
             <AppText style={styles.name} numberOfLines={1}>
               {item.name}
             </AppText>
           </Card>
         )}
-        keyExtractor={(item)=>item.name}
+        keyExtractor={(item) => item.name}
         horizontal
         showsHorizontalScrollIndicator={false}
       />
@@ -54,7 +61,7 @@ const styles = StyleSheet.create({
   container: {
     width: 150,
     height: 200,
-    marginRight:6,
+    marginRight: 6,
   },
   image: {
     width: "100%",
