@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Dimensions, Image, FlatList, StyleSheet } from "react-native";
 import Card from "./Card";
 import AppText from "./AppText";
 import AppHeader from "./AppHeader";
 import AppLabel from "./AppLabel";
 import Colors from "../config/Colors";
+import listingsApi from '../api/listings';
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -27,6 +28,15 @@ const signatureItems = [
 ];
 
 const SignatureItems = () => {
+
+  const [signatureItems,setSignatureItems]=useState([]);
+  useEffect(()=>{
+    loadListings();
+  },[]);
+  const loadListings = async ()=>{
+    const response = await listingsApi.getSignature();
+    setSignatureItems(response.data.recipes);
+  }
   return (
     <View style={styles.section}>
       <AppHeader style={styles.headertext}>Signature Items</AppHeader>

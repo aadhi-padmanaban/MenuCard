@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -11,49 +11,30 @@ import Colors from "../config/Colors";
 import Separator from "../components/Separator";
 import FullWidthCard from "../components/FullWidthCard";
 import Screen from "../components/Screen";
+import listingsApi from "../api/listings";
 
-const recentPurchase = [
-  {
-    title: "Recent one",
-    amount: "Rs.100",
-    image: "https://picsum.photos/seed/696/3000/2000",
-    monthPurchase: "100+ bought last month",
-    star: "4",
-  },
-  {
-    title: "Recent two",
-    amount: "Rs.200",
-    image: "https://picsum.photos/seed/696/3000/2000",
-  },
-  {
-    title: "Recent three",
-    amount: "Rs.300",
-    image: "https://picsum.photos/seed/696/3000/2000",
-    monthPurchase: "150+ bought last month",
-    star: "4",
-  },
-  {
-    title: "Recent four",
-    amount: "Rs.400",
-    image: "https://picsum.photos/seed/696/3000/2000",
-    star: "4",
-  },
-];
 const MenuList = ({ navigation }) => {
+  const [menuList, setMenuList]=useState([]);
+  useEffect(() => {
+    getMenuList();
+  }, []);
+  const getMenuList = async () => {
+    const response = await listingsApi.getMenuList();
+    setMenuList(response.data.recipes);
+  };
   return (
     <Screen>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.recentwrap}>
           <View style={styles.headertext}>
             <AppHeader style={styles.header}>Menu List</AppHeader>
-            
           </View>
           <FlatList
-            data={recentPurchase}
+            data={menuList}
             renderItem={({ item, index }) => (
               <TouchableHighlight
                 underlayColor={Colors.white}
-                onPress={() => navigation.navigate("MenuFullView")}
+                onPress={() => navigation.navigate("MenuFullView",{id:item.id})}
               >
                 <FullWidthCard item={item} />
               </TouchableHighlight>

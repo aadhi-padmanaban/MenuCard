@@ -10,5 +10,6 @@ export default {
   ratinggreen: "#008000",
   ratingyellow: "#e69007",
   blue: "#3474eb",
-  whiteTransparent:"rgba(255,255,255,0.2)",
+  whiteTransparent: "rgba(255,255,255,0.2)",
+  blackTransparent: "rgba(0,0,0,0.3)",
 };

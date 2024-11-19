@@ -32,7 +32,7 @@ const FeaturedItems = () => {
   }, []);
   const loadListings = async () => {
     const response = await listingsApi.getFeatured();
-    setfeaturedItems(response.recipes);
+    setfeaturedItems(response.data.recipes);
   };
   return (
     <View style={styles.featwrap}>
@@ -42,12 +42,14 @@ const FeaturedItems = () => {
         renderItem={({ item, index }) => (
           <Card style={styles.container}>
             <Image style={styles.image} source={{ uri: item.image }} />
+            <View style={styles.nameback}>
             <AppText style={styles.name} numberOfLines={1}>
               {item.name}
             </AppText>
+            </View>
           </Card>
         )}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
       />
@@ -70,6 +72,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderRadius: 10,
   },
+  nameback:{
+  },
   name: {
     display: "flex",
     position: "absolute",
@@ -77,6 +81,9 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     color: Colors.white,
+    backgroundColor: Colors.blackTransparent,
+    width:"100%",
+    overflow:'hidden'
   },
   headername: {
     fontSize: 16,

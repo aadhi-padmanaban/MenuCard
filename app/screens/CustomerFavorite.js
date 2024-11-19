@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -12,35 +12,45 @@ import Separator from "../components/Separator";
 import FullWidthCard from "../components/FullWidthCard";
 import Screen from "../components/Screen";
 
-const recentPurchase = [
-  {
-    title: "Recent one",
-    amount: "Rs.100",
-    image: "https://picsum.photos/seed/3000/2000",
-    monthPurchase: "100+ bought last month",
-    star: "4",
-  },
-  {
-    title: "Recent two",
-    amount: "Rs.200",
-    image: "https://picsum.photos/seed/3000/2000",
-  },
-  {
-    title: "Recent three",
-    amount: "Rs.300",
-    image: "https://picsum.photos/seed/3000/2000",
-    monthPurchase: "150+ bought last month",
-    star: "4",
-  },
-  {
-    title: "Recent four",
-    amount: "Rs.400",
-    image: "https://picsum.photos/seed/3000/2000",
-    star: "4",
-  },
-];
+import listingsApi from "../api/listings";
+
+// const recentPurchase = [
+//   {
+//     title: "Recent one",
+//     amount: "Rs.100",
+//     image: "https://picsum.photos/seed/3000/2000",
+//     monthPurchase: "100+ bought last month",
+//     star: "4",
+//   },
+//   {
+//     title: "Recent two",
+//     amount: "Rs.200",
+//     image: "https://picsum.photos/seed/3000/2000",
+//   },
+//   {
+//     title: "Recent three",
+//     amount: "Rs.300",
+//     image: "https://picsum.photos/seed/3000/2000",
+//     monthPurchase: "150+ bought last month",
+//     star: "4",
+//   },
+//   {
+//     title: "Recent four",
+//     amount: "Rs.400",
+//     image: "https://picsum.photos/seed/3000/2000",
+//     star: "4",
+//   },
+// ];
 
 const CustomerFavorite = ({ navigation }) => {
+  const [recentPurchase, setRecentPurchase] = useState([]);
+  const loadCustomersFav = async () => {
+    const response = await listingsApi.getCustomersFavourite();
+    setRecentPurchase(response.data.recipes);
+  };
+  useEffect(() => {
+    loadCustomersFav();
+  }, []);
   return (
     <Screen>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -53,12 +63,14 @@ const CustomerFavorite = ({ navigation }) => {
             renderItem={({ item, index }) => (
               <TouchableHighlight
                 underlayColor={Colors.white}
-                onPress={() => navigation.navigate("MenuFullView")}
+                onPress={() =>
+                  navigation.navigate("MenuFullView", { id: item.id })
+                }
               >
                 <FullWidthCard item={item} />
               </TouchableHighlight>
             )}
-            keyExtractor={(item) => item.title}
+            keyExtractor={(item) => item.id}
             scrollEnabled={false}
             ItemSeparatorComponent={<Separator />}
           />
@@ -74,8 +86,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 19,
-    justifyContent:"center",
-    alignItems:"center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   headertext: {
     flexDirection: "row",
