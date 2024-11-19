@@ -44,7 +44,7 @@ const RecentPurchase = ({ onPress }) => {
   }, []);
   const loadListings = async () => {
     const response = await listingsApi.getRecentPurchase();
-    setRecentPurchase(response.recipes);
+    setRecentPurchase(response.data.recipes);
   };
 
   return (
@@ -63,12 +63,12 @@ const RecentPurchase = ({ onPress }) => {
         renderItem={({ item, index }) => (
           <TouchableHighlight
             underlayColor={Colors.white}
-            onPress={() => navigation.navigate("MenuFullView")}
+            onPress={() => navigation.navigate("MenuFullView",{id:item.id})}
           >
             <FullWidthCard item={item} />
           </TouchableHighlight>
         )}
-        keyExtractor={(item) => item.title}
+        keyExtractor={(item) => {item.id}}
         scrollEnabled={false}
         ItemSeparatorComponent={<Separator />}
       />

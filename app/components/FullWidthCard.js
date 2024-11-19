@@ -19,20 +19,20 @@ const FullWidthCard = ({ item }) => {
       <View style={styles.content}>
         <View>
           <AppText numberOfLines={1} style={styles.title}>
-            {item.title}
+            {item.name}
           </AppText>
           {item.monthPurchase && (
             <AppText style={styles.monthlyPurch}>{item.monthPurchase}</AppText>
           )}
-          {item.star && (
+          {item.rating && (
             <AppText style={styles.starrating}>
-              {item.star}
+              {item.rating}
               <MaterialCommunityIcons name="star" size={10} />
-              Rating
+               Rating
             </AppText>
           )}
         </View>
-        <AppText style={styles.subtitle}>{item.amount}</AppText>
+        <AppText style={styles.subtitle}>200/-</AppText>
       </View>
     </View>
   );

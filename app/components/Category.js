@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, View, Text, StyleSheet, FlatList } from "react-native";
+import { Image, View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 
 import Card from "./Card";
 import AppHeader from "./AppHeader";
@@ -9,19 +9,55 @@ import Colors from "../config/Colors";
 const categories = [
   {
     name: "Veg",
-    image: "https://picsum.photos/200/200",
-    background: "#c5fcce",
+    image: "https://img.freepik.com/premium-vector/bruschetta-with-various-vegetable-round-plate-isolated_1639-24656.jpg",
+    background: "#fff",
     color: "#2eb774",
   },
   {
     name: "Non-Veg",
-    image: "https://picsum.photos/200/200",
-    background: "#fcebec",
+    image: "https://img.freepik.com/premium-vector/chicken-wings-asian-style-tomatoes-sauce-plate-white-background_852896-31545.jpg",
+    background: "#fff",
+    color: "#f94449",
+  },
+  {
+    name: "Veg",
+    image: "https://img.freepik.com/premium-vector/bruschetta-with-various-vegetable-round-plate-isolated_1639-24656.jpg",
+    background: "#fff",
+    color: "#2eb774",
+  },
+  {
+    name: "Non-Veg",
+    image: "https://img.freepik.com/premium-vector/chicken-wings-asian-style-tomatoes-sauce-plate-white-background_852896-31545.jpg",
+    background: "#fff",
+    color: "#f94449",
+  },
+  {
+    name: "Veg",
+    image: "https://img.freepik.com/premium-vector/bruschetta-with-various-vegetable-round-plate-isolated_1639-24656.jpg",
+    background: "#fff",
+    color: "#2eb774",
+  },
+  {
+    name: "Non-Veg",
+    image: "https://img.freepik.com/premium-vector/chicken-wings-asian-style-tomatoes-sauce-plate-white-background_852896-31545.jpg",
+    background: "#fff",
+    color: "#f94449",
+  },
+  {
+    name: "Veg",
+    image: "https://img.freepik.com/premium-vector/bruschetta-with-various-vegetable-round-plate-isolated_1639-24656.jpg",
+    background: "#fff",
+    color: "#2eb774",
+  },
+  {
+    name: "Non-Veg",
+    image: "https://img.freepik.com/premium-vector/chicken-wings-asian-style-tomatoes-sauce-plate-white-background_852896-31545.jpg",
+    background: "#fff",
     color: "#f94449",
   },
 ];
 
-const CategoryCard = ({ item, index }) => {
+const CategoryCard = ({ item }) => {
   return (
     <View style={[styles.catcontainer, { backgroundColor: item.background }]}>
       <Card style={styles.imgcontainer}>
@@ -44,15 +80,11 @@ const Category = () => {
     <View>
       <AppHeader style={styles.cattext}>Category</AppHeader>
       <View style={styles.catewrap}>
-        <FlatList
-          data={categories}
-          renderItem={({item, index}) => (
-            <CategoryCard item={item} index={index} />
-          )}
-          keyExtractor={(item) => item.name}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {categories.map(item=>(
+          <CategoryCard item={item} />
+        ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -70,27 +102,31 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: 90,
-    height: 90,
+    // height: 90,
     backgroundColor: Colors.white,
     borderRadius: 8,
     marginRight:6
   },
   catname: {
     paddingHorizontal: 3,
+    fontWeight:600
   },
   image: {
     flex: 1,
-    width: 60,
-    height: 60,
-    borderRadius: 10,
+    width: 70,
+    height: 70,
+    borderRadius: 50,
   },
   imgcontainer: {
-    height: 60,
-    width: 60,
+    height: 80,
+    width: 80,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 5,
+    // marginBottom: 5,
     marginTop: 5,
+    borderRadius: 50,
+    padding:5,
+    backgroundColor:Colors.red
   },
 });
 export default Category;

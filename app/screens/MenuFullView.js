@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -21,6 +21,8 @@ import Separator from "../components/Separator";
 import RenderHtml from "react-native-render-html";
 import MyBottomSheet from "../hooks/MyBottomSheet";
 import MyBottomSheetModal from "../components/MyBottomSheetModal";
+import listingsApi from "../api/listings";
+import MenuList from "./MenuList";
 // import BottomSheet from "@gorhom/bottom-sheet";
 
 const { width } = Dimensions.get("window");
@@ -41,12 +43,36 @@ const source = {
 </p>`,
 };
 
-const MenuFullView = ({ navigation }) => {
+const MenuFullView = ({ navigation, route }) => {
+  const [menuDetails, setMenuDetails] = useState([]);
+  const [thumbImages, setThumbs] = useState([]);
+  useEffect(() => {
+    loadFullDetails();
+  }, []);
+
+  const loadFullDetails = async () => {
+    const response = await listingsApi.getFullDetails(route.params.id);
+    const newob = {
+      ...response.data,
+      thmbs: [
+        { id: "1", thumb: "https://cdn.dummyjson.com/recipe-images/21.webp" },
+        { id: "2", thumb: "https://cdn.dummyjson.com/recipe-images/22.webp" },
+        { id: "3", thumb: "https://cdn.dummyjson.com/recipe-images/23.webp" },
+        { id: "4", thumb: "https://cdn.dummyjson.com/recipe-images/24.webp" },
+        { id: "5", thumb: "https://cdn.dummyjson.com/recipe-images/25.webp" },
+        { id: "6", thumb: "https://cdn.dummyjson.com/recipe-images/26.webp" },
+        { id: "7", thumb: "https://cdn.dummyjson.com/recipe-images/27.webp" },
+        { id: "8", thumb: "https://cdn.dummyjson.com/recipe-images/28.webp" },
+      ],
+    };
+    setMenuDetails(newob);
+  };
   const bottomSheetRef = useRef(null);
 
-  // const handleExpandPress = ()=> bottomSheetRef.current?.expand();
   const openModal = () => bottomSheetRef.current?.present();
-
+  if (!menuDetails || !Array.isArray(menuDetails["thmbs"])) {
+    return <Text>loading</Text>;
+  }
   return (
     <Screen style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -61,48 +87,38 @@ const MenuFullView = ({ navigation }) => {
                 />
               </View>
             </TouchableWithoutFeedback>
-            <Image
-              style={styles.image}
-              source={{ uri: "https://picsum.photos/seed/3000/2500" }}
-            />
+            <Image style={styles.image} source={{ uri: menuDetails.image }} />
             <View style={styles.thumbwrap}>
               <View style={styles.imgrow}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                  <TouchableWithoutFeedback onPress={() => navigation.navigate("FullScreenMediaView")}>
-                    <Image
-                      style={styles.thumbImage}
-                      source={{ uri: "https://picsum.photos/seed/3000/2500" }}
-                    />
-                  </TouchableWithoutFeedback>
-                  <Image
-                    style={styles.thumbImage}
-                    source={{ uri: "https://picsum.photos/seed/3000/2500" }}
-                  />
-                  <Image
-                    style={styles.thumbImage}
-                    source={{ uri: "https://picsum.photos/seed/3000/2500" }}
-                  />
-                  <Image
-                    style={styles.thumbImage}
-                    source={{ uri: "https://picsum.photos/seed/3000/2500" }}
-                  />
-                  <Image
-                    style={styles.thumbImage}
-                    source={{ uri: "https://picsum.photos/seed/3000/2500" }}
-                  />
-                  <Image
-                    style={styles.thumbImage}
-                    source={{ uri: "https://picsum.photos/seed/3000/2500" }}
-                  />
-                  <Image
-                    style={styles.thumbImage}
-                    source={{ uri: "https://picsum.photos/seed/3000/2500" }}
-                  />
+                  {menuDetails.thmbs.map((thumbimage, index) => (
+                    <TouchableWithoutFeedback
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate("FullScreenMediaView", {
+                          id: index,
+                        })
+                      }
+                    >
+                      <Image
+                        style={styles.thumbImage}
+                        source={{ uri: thumbimage.thumb }}
+                      />
+                    </TouchableWithoutFeedback>
+                  ))}
                 </ScrollView>
               </View>
-              <View style={styles.viewall}>
-                <AppText style={styles.viewalltext}>View All</AppText>
-              </View>
+              {menuDetails.thmbs.length > 6 && (
+                <TouchableHighlight
+                  onPress={() =>
+                    navigation.navigate("FullScreenMediaView", { id: 0 })
+                  }
+                >
+                  <View style={styles.viewall}>
+                    <AppText style={styles.viewalltext}>View All</AppText>
+                  </View>
+                </TouchableHighlight>
+              )}
             </View>
             <Separator style={styles.Separator} />
           </View>
@@ -110,12 +126,13 @@ const MenuFullView = ({ navigation }) => {
             <View style={styles.name}>
               <AppText style={styles.offerinfo}>In Offer</AppText>
               <AppHeader style={styles.menutitle}>
-                Menufullview Menufullview Menufullview Menufullview Menufullview
+                {menuDetails.name}
               </AppHeader>
             </View>
             <View style={styles.description}>
               <AppText style={styles.starrating}>
-                4.2 <MaterialCommunityIcons name="star" size={14} />
+                {menuDetails.rating}
+                <MaterialCommunityIcons name="star" size={14} />
               </AppText>
               <AppHeader style={styles.price}>
                 Rs.300 <AppHeader style={styles.delamt}>Rs.500</AppHeader>
